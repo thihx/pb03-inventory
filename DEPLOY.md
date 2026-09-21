@@ -1,41 +1,39 @@
 # PB-03 · Deploy & GitHub
 
-## Stack host miễn phí (đã chọn)
+## Repo
 
-| Thành phần | Host | Ghi chú |
+https://github.com/thihx/pb03-inventory
+
+## Host miễn phí đã chọn
+
+| Thành phần | Host | Lý do |
 |---|---|---|
-| **API + Website** (1 service) | [Render.com](https://render.com) Free | Express phục vụ luôn `apps/web/dist` |
-| **Source** | GitHub | Repo công khai hoặc riêng |
+| Source | **GitHub** | Lưu code khóa học |
+| API + Website (1 URL) | **[Render.com](https://render.com) Free** | Chạy được Express + SQLite; GitHub Pages chỉ phục vụ file tĩnh, không chạy Node API |
 
-> GitHub Pages chỉ host **static** — không chạy Express/SQLite. Vì vậy dùng **Render Free** cho cả web+API (một URL).
+> GitHub Pages / Cloudflare Pages = static only → không đủ cho PB-03.  
+> Render Free: sleep ~15 phút không traffic; lần mở đầu có thể chờ 30–60s.
 
-Render Free: service ngủ sau ~15 phút không traffic; request đầu có thể chậm 30–60s.
+## Deploy 1 click (Render Blueprint)
 
-## 1) Đẩy lên GitHub
+1. Đăng nhập Render bằng GitHub: https://render.com  
+2. Mở link Blueprint (đã gắn repo):  
+   **https://render.com/deploy?repo=https://github.com/thihx/pb03-inventory**  
+3. Chọn **Apply** / Create → đợi build (vài phút).  
+4. URL public dạng: `https://pb03-inventory-xxxx.onrender.com`
 
-```bash
-cd PB-03
-git init
-git add .
-git commit -m "PB-03 Capstone: warehouse inventory MVP + artefacts"
-gh repo create pb03-inventory --public --source=. --remote=origin --push
-```
+File cấu hình sẵn: `render.yaml` + `Dockerfile` (dự phòng).
 
-## 2) Deploy Render (1 click sau khi có repo)
+### Cấu hình thủ công (nếu không dùng Blueprint)
 
-1. Đăng ký https://render.com (đăng nhập bằng GitHub).
-2. **New → Blueprint** → chọn repo `pb03-inventory` (file `render.yaml` đã có sẵn).
-3. Apply → đợi build xong → mở URL dạng `https://pb03-inventory.onrender.com`.
+- **Root directory:** `.` (repo root)
+- **Build:** `npm run install:all && npm run build`
+- **Start:** `npm start`
+- **Health check:** `/api/health`
 
-Hoặc **New → Web Service** thủ công:
-
-- Build: `npm run install:all && npm run build`
-- Start: `npm start`
-- Health: `/api/health`
-
-## Tài khoản demo
+## Tài khoản demo trên site đã deploy
 
 - `clerk` / `Clerk@123`
 - `manager` / `Manager@123`
 
-SQLite trên Free tier **reset khi redeploy** — `npm start` luôn seed lại user demo.
+SQLite trên Free tier reset khi redeploy — mỗi lần start sẽ seed lại user demo.
