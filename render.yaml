@@ -1,0 +1,17 @@
+# PB-03 — free deploy on Render (one Web Service = API + SPA)
+# Docs: https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: pb03-inventory
+    runtime: node
+    plan: free
+    region: singapore
+    rootDir: .
+    buildCommand: npm run install:all && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true

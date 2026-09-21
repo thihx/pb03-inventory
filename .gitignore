@@ -1,0 +1,17 @@
+node_modules/
+**/node_modules/
+apps/api/data/
+*.db
+*.db-*
+dist/
+apps/web/dist/
+.DS_Store
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+coverage/
+*.log
+.npm/
+.tools/

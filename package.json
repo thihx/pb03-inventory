@@ -1,0 +1,16 @@
+{
+  "name": "pb03-inventory",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PM AI Bootcamp Capstone PB-03 — Internal warehouse inventory",
+  "scripts": {
+    "install:all": "npm install --prefix apps/api && npm install --prefix apps/web",
+    "build": "npm run build --prefix apps/web",
+    "seed": "npm run seed --prefix apps/api",
+    "start": "npm run seed --prefix apps/api && npm start --prefix apps/api",
+    "test": "npm test --prefix apps/api"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
